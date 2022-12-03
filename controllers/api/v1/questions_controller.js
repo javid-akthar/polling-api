@@ -37,13 +37,33 @@ module.exports.createQuestion = async function (req, res) {
 module.exports.deleteQuestion = async function (req, res) {
     try {
         console.log("reached deleteQuestion controller")
+        // to check if option havign vote
+        Question.findById
         let paramData = req.params;
-        let questionId = req.params.questionid
+        let questionId = req.params.questionid;
         if (!questionId) {
             return res.status(400).json({
                 error: "pls send the valid id"
             });
         }
+
+        deletableQuestion = await Question.findById(questionId)
+        .populate({
+            path: "options"
+        });
+
+        for(option of deletableQuestion.options){
+            if(!option.votes<=0){
+                return res.status(400).json({
+                    error: "Option has votes not able to delete"
+                });
+            }
+        }
+
+        for(option of deletableQuestion.options){
+            await Option.findByIdAndDelete(option._id);
+        }
+
         deletedQuestionRecord = await Question.findByIdAndDelete(questionId)
         if (!deletedQuestionRecord) {
             return res.status(400).json({
@@ -91,8 +111,6 @@ module.exports.fetchQuestion = async function (req, res) {
             });
         }
         return res.status(200).json(
-            // question: retrievedQuestionRecord.question,
-            // questionId: retrievedQuestionRecord._id,
             retrievedQuestionRecord
         );
     } catch (err) {

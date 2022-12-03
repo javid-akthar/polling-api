@@ -90,6 +90,14 @@ module.exports.addVote = async function (req, res) {
 
 module.exports.deleteOption = async function (req, res) {
     try {
+        // to check if option has a vote
+        deltableOption = await Option.findById(req.params.optionid);
+        console.log("deltableOption.votes",deltableOption.votes);
+        if(deltableOption.votes<=0){
+            return res.status(400).json({
+                error: "Option has votes not able to delete"
+            });
+        }
         console.log("reached deleteOption")
         let optionId = req.params.optionid;
         deltedOption = await Option.findByIdAndDelete(optionId)
