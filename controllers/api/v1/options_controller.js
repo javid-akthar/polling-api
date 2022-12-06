@@ -13,13 +13,15 @@ module.exports.addOption = async function (req, res) {
         optionAddableQuestion = await Question.findById(questionid);
         if(!optionAddableQuestion){
             return res.status(400).json({
-                error: "pls send the valid questionId, received questionId not present id DB"
+                error: "pls send the valid questionId, received questionId not present id DB",
+                status: "option not created"
             });
         }
         obj = req.body
         if (!obj.optionValue) {
             return res.status(400).json({
-                error: "pls send optionValue data"
+                error: "pls send optionValue data",
+                status: "option not created"
             });
         }
         optionObj = {
@@ -35,7 +37,8 @@ module.exports.addOption = async function (req, res) {
             updatedQuestion = await Question.findByIdAndUpdate(questionid, { $push: { options: addedOption._id } });
             if (!updatedQuestion) {
                 res.status(400).json({
-                    error: "pls provide valid questionId"
+                    error: "pls provide valid questionId",
+                    status: "option not created"
                 });
             }
         }
@@ -44,7 +47,8 @@ module.exports.addOption = async function (req, res) {
         res.status(200).json({
             OptionId: addedOption._id,
             OptionValue: addedOption.optionValue,
-            votingLink : addedOption.votingLink
+            votingLink : addedOption.votingLink,
+            status: "option created"
         });
     } catch (err) {
         console.log(err);
@@ -66,7 +70,8 @@ module.exports.addVote = async function (req, res) {
         UpdatedOption = await Option.findById(optionId);
         if (!UpdatedOption) {
             return res.status(400).json({
-                error: "error in adding vote"
+                error: "error in adding vote",
+                status: "vote not added"
             });
         }
         console.log('UpdatedOption', UpdatedOption.votes);
@@ -76,7 +81,8 @@ module.exports.addVote = async function (req, res) {
             res.status(200).json({
                 optionId: UpdatedOption._id,
                 optionValue: UpdatedOption.optionValue,
-                totalVotes: UpdatedOption.votes
+                totalVotes: UpdatedOption.votes,
+                status: "vote added"
             });
         }
     } catch (err) {
@@ -95,7 +101,8 @@ module.exports.deleteOption = async function (req, res) {
         console.log("deltableOption.votes",deltableOption.votes);
         if(deltableOption.votes<=0){
             return res.status(400).json({
-                error: "Option has votes not able to delete"
+                error: "Option has votes not able to delete",
+                status: "option not deleted"
             });
         }
         console.log("reached deleteOption")
@@ -103,13 +110,15 @@ module.exports.deleteOption = async function (req, res) {
         deltedOption = await Option.findByIdAndDelete(optionId)
         if (!deltedOption) {
             return res.status(400).json({
-                error: "pls provide valid optionId"
+                error: "pls provide valid optionId",
+                status: "option not deleted"
             });
         }
         UpdatedQuestion = await Question.findByIdAndUpdate(deltedOption.questionId, { $pull: { options: deltedOption._id } });
         if (!UpdatedQuestion) {
             return res.status(400).json({
-                error: "error in updating Questions data"
+                error: "error in updating Questions data",
+                status: "option not deleted"
             });
         }
         if (UpdatedQuestion) {
@@ -118,7 +127,8 @@ module.exports.deleteOption = async function (req, res) {
                 deletedOptionValue: deltedOption.optionValue,
 
                 updatedQuestionId: UpdatedQuestion._id,
-                updatedQuestionValue: UpdatedQuestion.question
+                updatedQuestionValue: UpdatedQuestion.question,
+                status: "option deleted"
             });
         }
     } catch (err) {

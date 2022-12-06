@@ -9,20 +9,23 @@ module.exports.createQuestion = async function (req, res) {
         payload = req.body;
         if (!payload) {
             return res.status(400).json({
-                error: "pls send the valid payload"
+                error: "pls send the valid payload",
+                status: "question not created"
             });
         }
         question = payload["question"];
         if (!question) {
             return res.status(400).json({
-                error: "pls send the valid payload"
+                error: "pls send the valid payload",
+                status: "question not created"
             });
         }
         let addedQuestion = await Question.create(payload);
         addedQuestion = await Question.findByIdAndUpdate(addedQuestion._id, {questionId : addedQuestion._id})
         return res.status(200).json({
             questionId: addedQuestion._id,
-            createdQuestion : addedQuestion.question
+            createdQuestion : addedQuestion.question,
+            status: "question Created"
         });
     } catch (err) {
         console.log(err);
@@ -43,7 +46,8 @@ module.exports.deleteQuestion = async function (req, res) {
         let questionId = req.params.questionid;
         if (!questionId) {
             return res.status(400).json({
-                error: "pls send the valid id"
+                error: "pls send the valid id",
+                status: "question not deleted"
             });
         }
 
@@ -55,7 +59,8 @@ module.exports.deleteQuestion = async function (req, res) {
         for(option of deletableQuestion.options){
             if(!option.votes<=0){
                 return res.status(400).json({
-                    error: "Option has votes not able to delete"
+                    error: "Option has votes not able to delete",
+                    status: "question not deleted"
                 });
             }
         }
@@ -67,14 +72,16 @@ module.exports.deleteQuestion = async function (req, res) {
         deletedQuestionRecord = await Question.findByIdAndDelete(questionId)
         if (!deletedQuestionRecord) {
             return res.status(400).json({
-                error: "pls send the valid id"
+                error: "pls send the valid id",
+                status: "question not deleted"
             });
         }
         console.log('deletedQuestionRecord', deletedQuestionRecord);
         console.log('questionId', questionId);
         return res.status(200).json({
             questionId: deletedQuestionRecord._id,
-            deletedQuestion: deletedQuestionRecord.question
+            deletedQuestion: deletedQuestionRecord.question,
+            status: "question deleted"
             
         });
     } catch (err) {
