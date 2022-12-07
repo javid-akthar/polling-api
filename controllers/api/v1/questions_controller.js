@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Question = require('../../../models/question');
 const Option = require('../../../models/option');
 
+// controller to create question
 module.exports.createQuestion = async function (req, res) {
     try {
         console.log(req.protocol+"://"+req.headers.host);
@@ -37,6 +38,7 @@ module.exports.createQuestion = async function (req, res) {
 
 }
 
+// controller to delete question
 module.exports.deleteQuestion = async function (req, res) {
     try {
         console.log("reached deleteQuestion controller")
@@ -57,7 +59,7 @@ module.exports.deleteQuestion = async function (req, res) {
         });
 
         for(option of deletableQuestion.options){
-            if(!option.votes<=0){
+            if(option.votes >= 0){
                 return res.status(400).json({
                     error: "Option has votes not able to delete",
                     status: "question not deleted"
@@ -94,6 +96,7 @@ module.exports.deleteQuestion = async function (req, res) {
 
 }
 
+// controller to view question
 module.exports.fetchQuestion = async function (req, res) {
     try {
         console.log("reached fetchQuestion controller");

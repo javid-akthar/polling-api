@@ -2,11 +2,10 @@ const mongoose = require('mongoose');
 const Question = require('../../../models/question');
 const Option = require('../../../models/option');
 
+// controller to add option
 module.exports.addOption = async function (req, res) {
     try {
         console.log("reached add option");
-        // console.log('req',req);
-        // console.log('req', 'http://'+'localhost:8006'+req.originalUrl);
         votingLink = req.protocol+"://"+req.headers.host + "/api/v1/option/:optionid/add_vote"
         let questionid = req.params.questionid;
         console.log('questionid', questionid);
@@ -59,11 +58,10 @@ module.exports.addOption = async function (req, res) {
     }
 }
 
-
+// controller to add vote
 module.exports.addVote = async function (req, res) {
     try {
         console.log("reached addVote");
-        console.log('req', 'http://' + 'localhost:8006' + req.originalUrl);
         let optionId = req.params.optionid;
         console.log('optionId', optionId);
         UpdatedOption = await Option.findByIdAndUpdate(optionId, { $inc: { 'votes': 1 } })
@@ -94,12 +92,13 @@ module.exports.addVote = async function (req, res) {
     }
 }
 
+// contoller to delete option 
 module.exports.deleteOption = async function (req, res) {
     try {
         // to check if option has a vote
         deltableOption = await Option.findById(req.params.optionid);
         console.log("deltableOption.votes",deltableOption.votes);
-        if(deltableOption.votes<=0){
+        if(deltableOption.votes >= 1){
             return res.status(400).json({
                 error: "Option has votes not able to delete",
                 status: "option not deleted"

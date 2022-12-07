@@ -1,15 +1,13 @@
 const express = require('express');
 const env = require('./config/environment');
 const app = express();
-const port = process.env.PORT || 3003;
+const port = process.env.PORT || 3001;
 const logger = require('morgan');
 const db = require('./config/mongoose');
 
-// middle for parse form data
 app.use(express.urlencoded({ extended : true }));
 app.use(express.json());
 
-// route for home
 console.log('env', env);
 app.use(logger(env.morgan.mode, env.morgan.options));
 app.use('/', require('./routes/index'));
