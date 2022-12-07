@@ -59,7 +59,7 @@ module.exports.deleteQuestion = async function (req, res) {
         });
 
         for(option of deletableQuestion.options){
-            if(option.votes >= 0){
+            if(option.votes >= 1){
                 return res.status(400).json({
                     error: "Option has votes not able to delete",
                     status: "question not deleted"

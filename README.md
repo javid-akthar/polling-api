@@ -14,8 +14,8 @@ Link to the Demo Video :
 
 # Routes & URL :
 ##create question
-- **/api/v1/question/create** : To create a new question hit the following URL with a post request: 
-
+- **/api/v1/question/create** : to create a question use the below url with post type and payload: 
+  url:  15.206.165.96:3001/api/v1/question/create
 ## sample payload schema:
   {
     "question": "favourite sport"
@@ -29,7 +29,7 @@ Link to the Demo Video :
 
 ## view question
 - **/questions/:id**: To view a question and it’s options, hit the following URL with a get request:  
-
+url:  15.206.165.96:3001/api/v1/question/:questionid
 ## sample payload schema
     url : localhost:8006/api/v1/question/:questionid
 
@@ -48,7 +48,8 @@ Link to the Demo Video :
 }
 
 ## delete question
-- **/questions/:id/delete** : To delete a question, hit the following URL with a delete request:  
+- **/questions/:id/delete** : To delete a question, hit the following URL with a delete request:
+url: 15.206.165.96:3001/api/v1/question/:questiond/delete  
 ## sample payload schema
   url: localhost:8006/api/v1/question/:questiond/delete
 ## sample response schema
@@ -59,7 +60,7 @@ Link to the Demo Video :
 }
 
 ## create option
-- **/api/v1/question/:questionid** : To create a new option for a question hit the following URL with a post request: 
+- **/api/v1/question/:questionid** : To create a new option for a question hit the following URL with a post request: 15.206.165.96:3001/api/v1/option/:questionid/add
 
 ## sample payload schema
   url:  localhost:8006/api/v1/option/:questionid/add
@@ -72,7 +73,7 @@ Link to the Demo Video :
 }   
 
 ## add vote
-- **/options/:id/add_vote**: To increment the count of votes on an option, hit the following URL with a get request: 
+- **/options/:id/add_vote**: To increment the count of votes on an option, hit the following URL with a get url: 15.206.165.96:3001/api/v1/option/:optionid/add_vote 
 
 ## sample payload schema
   url:  localhost:8006/api/v1/option/:optionid/add_vote
@@ -86,7 +87,7 @@ Link to the Demo Video :
 
 ## delete option
 - **/options/:id/delete**: To delete an option, hit the following URL with a delete request:  
-
+url:  15.206.165.96:3001/api/v1/option/:optonid/delete
 ## sample payload schema
   url:  localhost:8006/api/v1/option/:optonid/delete
 ## sample response schema
