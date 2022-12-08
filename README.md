@@ -12,10 +12,13 @@ Link to the Demo Video :
 - Delete an option →  An option cant be deleted if that option is holding atlest single vote.
 - able to view a question with options and their votes.
 
+# app url: 
+ http://ec2-15-206-165-96.ap-south-1.compute.amazonaws.com:3001/api/v1/
+
 # Routes & URL :
 ##create question
 - **/api/v1/question/create** : to create a question use the below url with post type and payload: 
-  url:  15.206.165.96:3001/api/v1/question/create
+  ### url:  15.206.165.96:3001/api/v1/question/create
 ## sample payload schema:
   {
     "question": "favourite sport"
@@ -28,7 +31,7 @@ Link to the Demo Video :
 }
 
 ## view question
-- **/questions/:id**: To view a question and it’s options, hit the following URL with a get request:  
+- **/question/:questionid**: To view a question and it’s options, hit the following URL with a get request:  
 url:  15.206.165.96:3001/api/v1/question/:questionid
 ## sample payload schema
     url : localhost:8006/api/v1/question/:questionid
@@ -47,8 +50,9 @@ url:  15.206.165.96:3001/api/v1/question/:questionid
     "questionId": "639103538bef6908ae190979"
 }
 
+ 
 ## delete question
-- **/questions/:id/delete** : To delete a question, hit the following URL with a delete request of get type:
+- **/question/:questiond/delete** : To delete a question, hit the following URL with a delete request of get type:
 url: 15.206.165.96:3001/api/v1/question/:questiond/delete  
 ## sample payload schema
   url: 15.206.165.96:3001/api/v1/question/:questiond/delete
@@ -60,7 +64,7 @@ url: 15.206.165.96:3001/api/v1/question/:questiond/delete
 }
 
 ## create option
-- **/api/v1/question/:questionid** : To create a new option for a question hit the following URL with a post request: 15.206.165.96:3001/api/v1/option/:questionid/add
+- **/option/:questionid/add** : To create a new option for a question hit the following URL with a post request: 15.206.165.96:3001/api/v1/option/:questionid/add
 
 ## sample payload schema
   url:  localhost:8006/api/v1/option/:questionid/add
@@ -78,7 +82,7 @@ url: 15.206.165.96:3001/api/v1/question/:questiond/delete
     }   
 
 ## add vote
-- **/options/:id/add_vote**: To increment the count of votes on an option, hit the following URL with a get url: 15.206.165.96:3001/api/v1/option/:optionid/add_vote 
+- **/option/:optionid/add_vote**: To increment the count of votes on an option, hit the following URL with a get url: 15.206.165.96:3001/api/v1/option/:optionid/add_vote 
 
 ## sample payload schema
   url:  15.206.165.96:3001/api/v1/option/:optionid/add_vote
@@ -91,7 +95,7 @@ url: 15.206.165.96:3001/api/v1/question/:questiond/delete
 }
 
 ## delete option
-- **/options/:id/delete**: To delete an option, hit the following URL with a delete request of get type:  
+- **/option/:optonid/delete**: To delete an option, hit the following URL with a delete request of get type:  
 url:  15.206.165.96:3001/api/v1/option/:optonid/delete
 ## sample payload schema
   url:  localhost:8006/api/v1/option/:optonid/delete
