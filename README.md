@@ -48,10 +48,10 @@ url:  15.206.165.96:3001/api/v1/question/:questionid
 }
 
 ## delete question
-- **/questions/:id/delete** : To delete a question, hit the following URL with a delete request:
+- **/questions/:id/delete** : To delete a question, hit the following URL with a delete request of get type:
 url: 15.206.165.96:3001/api/v1/question/:questiond/delete  
 ## sample payload schema
-  url: localhost:8006/api/v1/question/:questiond/delete
+  url: 15.206.165.96:3001/api/v1/question/:questiond/delete
 ## sample response schema
   {
     "questionId": "6391051f8bef6908ae19098d",
@@ -64,19 +64,24 @@ url: 15.206.165.96:3001/api/v1/question/:questiond/delete
 
 ## sample payload schema
   url:  localhost:8006/api/v1/option/:questionid/add
+
+  payload:
+    {
+    "optionValue": "chess"
+    }
 ## sample response schema
    {
     "OptionId": "6391042c8bef6908ae19097e",
     "OptionValue": "javids",
     "votingLink": "http://localhost:8006/api/v1/option/6391042c8bef6908ae19097e/add_vote",
     "status": "option created"
-}   
+    }   
 
 ## add vote
 - **/options/:id/add_vote**: To increment the count of votes on an option, hit the following URL with a get url: 15.206.165.96:3001/api/v1/option/:optionid/add_vote 
 
 ## sample payload schema
-  url:  localhost:8006/api/v1/option/:optionid/add_vote
+  url:  15.206.165.96:3001/api/v1/option/:optionid/add_vote
 ## sample response schema
   {
     "optionId": "6391042c8bef6908ae19097e",
@@ -86,7 +91,7 @@ url: 15.206.165.96:3001/api/v1/question/:questiond/delete
 }
 
 ## delete option
-- **/options/:id/delete**: To delete an option, hit the following URL with a delete request:  
+- **/options/:id/delete**: To delete an option, hit the following URL with a delete request of get type:  
 url:  15.206.165.96:3001/api/v1/option/:optonid/delete
 ## sample payload schema
   url:  localhost:8006/api/v1/option/:optonid/delete
