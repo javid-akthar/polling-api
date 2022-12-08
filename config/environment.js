@@ -29,7 +29,4 @@ const production = {
     }
 }
 
-// module.exports = development;
-// NODE_ENV
-// module.exports = eval(process.env.POLLING_API_ENVIRONMENT)== undefined ? development:eval(process.env.POLLING_API_ENVIRONMENT);
 module.exports = eval(process.env.NODE_ENV)== undefined ? development:eval(process.env.NODE_ENV);
